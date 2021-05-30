@@ -1,7 +1,8 @@
 self: super: {
   unmatched = {
+    metaSifive = super.callPackage ./meta-sifive { };
     opensbi = super.callPackage ./opensbi { };
     uboot = super.callPackage ./uboot { };
-    metaSifive = super.callPackage ./meta-sifive { };
+    ubootQemu = super.callPackage ./uboot-qemu { };
   };
 }

@@ -15,5 +15,5 @@
     "OPENSBI=${unmatched.opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin"
   ];
 
-  filesToInstall = [ "u-boot.itb" "spl/u-boot-spl.bin"];
+  filesToInstall = [ "u-boot.itb" "spl/u-boot-spl.bin" ];
 }
