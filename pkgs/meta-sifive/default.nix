@@ -4,8 +4,8 @@
   metaSifive = fetchFromGitHub {
     owner = "sifive";
     repo = "meta-sifive";
-    rev = "1340b6018b87263fa6c28072ddd0a9d0ac3a849e";
-    sha256 = "1pbamywniiqg3jy3sj9r63qhs8jamwd8py431zk5hlnnks8hfrvy";
+    rev = "e58f340822eaae8f1b3352085edb807e01b87d63"; # 2021.05
+    sha256 = "0in4k9s24fwq2x7gv3a0s0w3shjcirmsngicrk3g0zsczw6nfhwy";
   };
 in {
   ubootPatches = map (patch: "${metaSifive}/recipes-bsp/u-boot/files/unmatched/${patch}") [
@@ -61,11 +61,37 @@ in {
     "0050-riscv-sifive-fu740-Support-i2c-in-spl.patch"
     "0051-board-sifive-Add-an-interface-to-get-PCB-revision.patch"
     "0052-riscv-sifive-unmatched-set-default-clock-to-1.2GHz.patch"
+    "0053-board-sifive-spl-Set-remote-thermal-of-TMP451-to-85-.patch"
   ];
   opensbiPatches = map (patch: "${metaSifive}/recipes-bsp/opensbi/files/${patch}") [
     "0001-Makefile-Don-t-specify-mabi-or-march.patch"
     "unmatched/0001-lib-utils-add-GPIO-and-poweroff-parsing.patch"
     "unmatched/0002-lib-utils-add-gpio-generic-interface.patch"
     "unmatched/0003-lib-utils-reset-add-powor-off-support.patch"
+  ];
+  kernelPatches = map (patch: "${metaSifive}/recipes-kernel/linux/files/${patch}") [
+    "0001-riscv-dts-fu740-fix-cache-controller-interrupts.patch"
+    "0002-riscv-sifive-fu740-cpu-1-2-3-4-set-compatible-to-sif.patch"
+    "0003-riscv-sifive-unmatched-update-for-16GB-rev3.patch"
+    "0004-riscv-Add-3-SBI-wrapper-functions-to-get-cpu-manufac.patch"
+    "0005-riscv-Introduce-alternative-mechanism-to-apply-errat.patch"
+    "0006-riscv-sifive-Add-SiFive-alternative-ports.patch"
+    "0007-riscv-sifive-Apply-errata-cip-453-patch.patch"
+    "0008-riscv-sifive-Apply-errata-cip-1200-patch.patch"
+    "0009-riscv-enable-SiFive-errata-CIP-453-and-CIP-1200-Kcon.patch"
+    "0010-clk-sifive-Add-pcie_aux-clock-in-prci-driver-for-PCI.patch"
+    "0011-clk-sifive-Use-reset-simple-in-prci-driver-for-PCIe-.patch"
+    "0012-MAINTAINERS-Add-maintainers-for-SiFive-FU740-PCIe-dr.patch"
+    "0013-dt-bindings-PCI-Add-SiFive-FU740-PCIe-host-controlle.patch"
+    "0014-PCI-fu740-Add-SiFive-FU740-PCIe-host-controller-driv.patch"
+    "0015-riscv-dts-Add-PCIe-support-for-the-SiFive-FU740-C000.patch"
+    "0016-riscv-sifive-unmatched-add-D12-PWM-LED.patch"
+    "0017-riscv-sifive-unmatched-add-gpio-poweroff-node.patch"
+    "0018-riscv-sifive-unmatched-add-D2-RGB-LED.patch"
+    "0019-riscv-sifive-unmatched-remove-A00-from-model.patch"
+    "0020-riscv-sifive-unmatched-define-LEDs-color.patch"
+    "0021-riscv-enable-generic-PCI-resource-mapping.patch"
+    "0022-SiFive-HiFive-Unleashed-Add-PWM-LEDs-D1-D2-D3-D4.patch"
+    "0023-riscv-sifive-unleashed-define-opp-table-cpufreq.patch"
   ];
 }
