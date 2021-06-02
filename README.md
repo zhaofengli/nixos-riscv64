@@ -3,6 +3,19 @@
 Work in progress.
 I'm using [this Nixpkgs tree](https://github.com/zhaofengli/nixpkgs/tree/riscv) with oxalica's bootstrap binaries from [this PR](https://github.com/NixOS/nixpkgs/pull/115406).
 
+Include `configuration.nix` in your NixOS configuration.
+
+## Is it booting?
+
+Yes! More details [here](https://github.com/NixOS/nixpkgs/issues/101651#issuecomment-852725823).
+
+![Screenshot of pfetch output on the HiFive Unmatched in a terminal](./imgs/riesgo-firstboot.png)
+
+## Binary cache
+
+A binary cache is available [here](https://app.cachix.org/cache/unmatched).
+Note that all binaries here are built against [my Nixpkgs tree](https://github.com/zhaofengli/nixpkgs/tree/riscv).
+
 ## U-Boot
 
 Build `pkgs.unmatched.uboot`.
