@@ -25,6 +25,15 @@ You need to create two GPT partitions on the SD card with the following sizes an
 - 1MiB `5b193300-fc78-40cd-8002-e86c45580b47` (HiFive Unleashed FSBL)
 - 4MiB `2e54b353-1271-4842-806f-e436d6af6985` (HiFive Unleashed BBL)
 
+The easiest way to do this is with this command (you need `pkgs.gptfdisk`):
+
+```
+sgdisk -g --clear --set-alignment=1 \
+    --new=1:34:+1M: --typecode=1:5b193300-fc78-40cd-8002-e86c45580b47 \
+    --new=2:2082:+4M: --typecode=2:2e54b353-1271-4842-806f-e436d6af6985 \
+    [block device]
+```
+
 Write the bootloader to the SD card as follows:
 
 ```
