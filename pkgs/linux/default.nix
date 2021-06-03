@@ -24,6 +24,18 @@ linuxPackages_5_12.kernel.override({
         ERRATA_SIFIVE_CIP_1200 y
       '';
     }
+    {
+      name = "unmatched-cpufreq";
+      patch = null;
+      extraConfig = ''
+        CPU_IDLE y
+        CPU_FREQ y
+        CPU_FREQ_DEFAULT_GOV_USERSPACE y
+        CPU_FREQ_GOV_PERFORMANCE y
+        CPU_FREQ_GOV_USERSPACE y
+        CPU_FREQ_GOV_ONDEMAND y
+      '';
+    }
   ]);
 })
 //
