@@ -1,4 +1,4 @@
-{ lib, buildUBoot, fetchFromGitHub, unmatched }: buildUBoot {
+{ lib, buildUBoot, fetchFromGitHub, overclock ? true, unmatched }: buildUBoot {
   version = "2021.01";
   src = fetchFromGitHub {
     owner = "u-boot";
@@ -10,7 +10,8 @@
   defconfig = "sifive_hifive_unmatched_fu740_defconfig";
 
   extraMeta.platforms = [ "riscv64-linux" ];
-  extraPatches = unmatched.metaSifive.ubootPatches;
+  extraPatches = unmatched.metaSifive.ubootPatches
+    ++ lib.optional overclock ./overclock.patch;
   extraMakeFlags = [
     "OPENSBI=${unmatched.opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin"
   ];
