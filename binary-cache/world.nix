@@ -61,7 +61,8 @@ in {
   tier2 = makeWorld "tier2" (with pkgs; [
     graphicalSystem
 
-    lynx xterm alacritty
+    lynx netsurf.browser
+    xterm alacritty
     p7zip libarchive
     superTuxKart
   ]);
