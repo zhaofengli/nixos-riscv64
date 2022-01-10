@@ -1,9 +1,9 @@
-# NixOS on the HiFive Unmatched
+# NixOS on RISC-V
 
-Work in progress.
-I'm using [this Nixpkgs tree](https://github.com/zhaofengli/nixpkgs/tree/riscv) with oxalica's bootstrap binaries from [this PR](https://github.com/NixOS/nixpkgs/pull/115406).
+This repo contains board-specific packages to get NixOS running on RISC-V platforms.
+I'm using [this Nixpkgs tree](https://github.com/zhaofengli/nixpkgs/tree/riscv).
 
-Include `configuration.nix` in your NixOS configuration.
+For the HiFive Unmatched, include `nixos/unmatched.nix` in your NixOS configuration.
 
 ## Is it booting?
 
@@ -54,3 +54,10 @@ dd if=result/u-boot.itb of=/dev/mmcblk0p2 bs=4k oflag=direct
 
 - https://github.com/carlosedp/riscv-bringup/tree/master/unmatched
 - https://github.com/NixOS/nixpkgs/pull/115406
+
+## See Also
+
+There are other efforts to bring NixOS to RISC-V:
+
+- https://github.com/NickCao/nixos-riscv
+- https://github.com/ius/jh7100

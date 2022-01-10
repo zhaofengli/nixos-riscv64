@@ -1,0 +1,11 @@
+/nixpkgs
+/nixpkgs-cached
+
+result
+result-*
+
+*~
+*.swp
+
+# Personal scripts
+/nix-build

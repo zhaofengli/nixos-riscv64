@@ -1,10 +1,10 @@
-self: super: {
+final: prev: {
   unmatched = rec {
-    metaSifive = super.callPackage ./meta-sifive { };
+    metaSifive = final.callPackage ./meta-sifive { };
 
-    linux = super.callPackage ./linux { };
-    linuxPackages = super.linuxPackagesFor linux;
+    linux = final.callPackage ./linux { };
+    linuxPackages = final.linuxPackagesFor linux;
 
-    uboot = super.callPackage ./uboot { };
+    uboot = final.callPackage ./uboot { };
   };
 }
