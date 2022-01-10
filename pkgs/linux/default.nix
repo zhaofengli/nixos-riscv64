@@ -1,4 +1,4 @@
-{ pkgs, lib, linuxPackages_5_12, unmatched, ... } @ args:
+{ pkgs, lib, linuxPackages_5_15, unmatched, ... } @ args:
 
 let
   sifivePatches = map (patch: {
@@ -6,7 +6,7 @@ let
     inherit patch;
   }) unmatched.metaSifive.kernelPatches;
 in
-linuxPackages_5_12.kernel.override({
+linuxPackages_5_15.kernel.override({
   kernelPatches = lib.lists.unique (sifivePatches ++ [
     {
       name = "unmatched-config";

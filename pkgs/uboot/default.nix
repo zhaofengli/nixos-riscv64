@@ -1,19 +1,19 @@
-{ lib, buildUBoot, fetchFromGitHub, overclock ? true, unmatched }: buildUBoot {
-  version = "2021.01";
+{ lib, buildUBoot, fetchFromGitHub, opensbi, overclock ? true, unmatched }: buildUBoot rec {
+  version = "2021.10";
   src = fetchFromGitHub {
     owner = "u-boot";
     repo = "u-boot";
-    rev = "v2021.01";
-    sha256 = "122lxr55apad9jb81074z1k8rlyhrz8mbz5y48y3dwkcycn393xl";
+    rev = "v${version}";
+    sha256 = "sha256-2CcIHGbm0HPmY63Xsjaf/Yy78JbRPNhmvZmRJAyla2U=";
   };
 
-  defconfig = "sifive_hifive_unmatched_fu740_defconfig";
+  defconfig = "sifive_unmatched_defconfig";
 
   extraMeta.platforms = [ "riscv64-linux" ];
   extraPatches = unmatched.metaSifive.ubootPatches
-    ++ lib.optional overclock ./overclock.patch;
+    ++ lib.optional overclock ./overclock.patch
   extraMakeFlags = [
-    "OPENSBI=${unmatched.opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin"
+    "OPENSBI=${opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin"
   ];
 
   filesToInstall = [ "u-boot.itb" "spl/u-boot-spl.bin" ];
