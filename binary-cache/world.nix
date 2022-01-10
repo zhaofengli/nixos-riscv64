@@ -11,6 +11,7 @@ let
       imports = [
         # All utilities in installer images
         (pkgs.path + "/nixos/modules/profiles/base.nix")
+        (pkgs.path + "/nixos/modules/profiles/installation-device.nix")
       ];
 
       fileSystems."/".device = "fake";
@@ -49,21 +50,24 @@ in {
     gnupg gpgme pcsclite
     gptfdisk udisks
     polkit xdg-utils
-    usbutils pciutils
+    usbutils pciutils mtdutils
 
-    vim tmux wget jq htop
+    vim tmux wget jq htop pfetch
+    p7zip libarchive
+    fish zsh
   ] ++ cachedLinuxPackagesFor unmatched.linuxPackages
     ++ cachedLinuxPackagesFor linuxPackages
-    ++ cachedLinuxPackagesFor linuxPackages_5_12
+    ++ cachedLinuxPackagesFor linuxPackages_5_15
   );
 
   # Tier 2: Desktop-related and other interesting packages
   tier2 = makeWorld "tier2" (with pkgs; [
     graphicalSystem
 
+    pulseaudio
+    mesa-demos
     lynx netsurf.browser
-    xterm alacritty
-    p7zip libarchive
+    xterm alacritty kitty
     superTuxKart
   ]);
 }
