@@ -7,6 +7,5 @@ self: super: {
 
     opensbi = super.callPackage ./opensbi { };
     uboot = super.callPackage ./uboot { };
-    ubootQemu = super.callPackage ./uboot-qemu { };
   };
 }
