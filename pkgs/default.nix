@@ -5,7 +5,6 @@ self: super: {
     linux = super.callPackage ./linux { };
     linuxPackages = super.linuxPackagesFor linux;
 
-    opensbi = super.callPackage ./opensbi { };
     uboot = super.callPackage ./uboot { };
   };
 }
