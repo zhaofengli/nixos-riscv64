@@ -23,7 +23,7 @@ let
   in ffOverride.overrideAttrs (old: {
     # The only thing required here is to update authenticator-rs
     # for RISC-V support.
-    patches = [
+    patches = (old.patches or []) ++ [
       ./riscv64.patch
     ];
   });
