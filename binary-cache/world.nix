@@ -68,6 +68,8 @@ in {
     mesa-demos
     lynx netsurf.browser
     xterm alacritty kitty
+    waypipe
+    grim slurp wdisplays
     superTuxKart
   ]);
 }
