@@ -8,5 +8,6 @@ final: prev: {
     linuxPackages = final.linuxPackagesFor linux;
 
     uboot = final.callPackage ./uboot { };
+    firefox = final.callPackage ./firefox { };
   };
 }

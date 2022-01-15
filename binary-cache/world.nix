@@ -71,5 +71,7 @@ in {
     waypipe
     grim slurp wdisplays
     superTuxKart
+
+    unmatched.firefox
   ]);
 }
