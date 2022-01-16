@@ -10,7 +10,7 @@
   defconfig = "sifive_unmatched_defconfig";
 
   extraMeta.platforms = [ "riscv64-linux" ];
-  extraPatches = unmatched.metaSifive.ubootPatches
+  extraPatches = unmatched.meta-sifive.ubootPatches
     ++ lib.optional overclock ./overclock.patch
   extraMakeFlags = [
     "OPENSBI=${opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin"

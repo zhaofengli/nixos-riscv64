@@ -1,8 +1,8 @@
 final: prev: {
   unmatched = rec {
-    metaSifive = final.callPackage ./meta-sifive { };
+    meta-sifive = final.callPackage ./meta-sifive { };
 
-    sdImageQemu = final.callPackage ./sd-image-qemu { };
+    sd-image-qemu = final.callPackage ./sd-image-qemu { };
 
     linux = final.callPackage ./linux { };
     linuxPackages = final.linuxPackagesFor linux;

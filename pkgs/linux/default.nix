@@ -4,7 +4,7 @@ let
   sifivePatches = map (patch: {
     name = baseNameOf patch;
     inherit patch;
-  }) unmatched.metaSifive.kernelPatches;
+  }) unmatched.meta-sifive.kernelPatches;
 in
 linuxPackages_5_15.kernel.override({
   kernelPatches = lib.lists.unique (sifivePatches ++ [
