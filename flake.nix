@@ -8,7 +8,13 @@
   outputs = { self, nixpkgs }: let
     pkgs = import nixpkgs {
       system = "riscv64-linux";
-      overlays = [ self.overlay ];
+      overlays = [
+        (final: prev: {
+          nixos-riscv64 = self.outPath;
+        })
+
+        self.overlay
+      ];
     };
   in {
     overlay = import ./pkgs;

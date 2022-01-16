@@ -1,20 +1,17 @@
 { config, pkgs, modulesPath, ... }:
-let
-  mesa-patched = pkgs.mesa.overrideAttrs (old: {
-    patches = (old.patches or []) ++ [
-      ./gallivm-riscv.patch
-    ];
-  });
-in {
+{
   imports = [
     (modulesPath + "/installer/sd-card/sd-image-riscv64-qemu.nix")
+  ];
+
+  nixpkgs.overlays = [
+    (import <nixos-riscv64/pkgs>)
   ];
 
   hardware.pulseaudio.enable = true;
 
   services.xserver = {
     enable = true;
-
 
     # For OOBE - You may want to disable the following
     displayManager.autoLogin = {
@@ -37,21 +34,11 @@ in {
   };
 
   environment.systemPackages = with pkgs; [
-    unmatched.firefox
+    riscv64.firefox
     superTuxKart
     glxinfo
     kitty
-  ];
-
-  system.replaceRuntimeDependencies = [
-    {
-      original = pkgs.mesa;
-      replacement = mesa-patched;
-    }
-    {
-      original = pkgs.mesa.drivers;
-      replacement = mesa-patched.drivers;
-    }
+    pavucontrol
   ];
 
   # imake/xorg-cf-files doesn't have riscv64 definitions merged

@@ -1,4 +1,4 @@
-{ lib, nixos, nix-gitignore, runCommandLocal
+{ lib, nixos, nix-gitignore, runCommandLocal, ubootQemuRiscv64Smode
 , nixos-riscv64 ? nix-gitignore.gitignoreSource [] ../.. }:
 
 let
@@ -7,11 +7,13 @@ let
     cp -prd ${nixos-riscv64} $out/nixos-riscv64
   '';
 
-  config = { pkgs, modulesPath, config, ... }: {
+  config = { lib, pkgs, modulesPath, config, ... }: {
     imports = [
       (modulesPath + "/installer/sd-card/sd-image-riscv64-qemu-installer.nix")
       ./configuation.nix
     ];
+
+    nixpkgs.overlays = lib.mkForce [];
 
     boot.postBootCommands = lib.mkAfter ''
       # Copy nixos-riscv64 channel
@@ -28,6 +30,11 @@ let
       if [[ ! -e /etc/nixos/configuration.nix ]]; then
         cp ${./configuation.nix} /etc/nixos/configuration.nix
       fi
+    '';
+
+    sdImage.postBuildCommands = ''
+      cp ${ubootQemuRiscv64Smode}/u-boot.bin $out/
+      cp ${./launch.sh} $out/launch.sh
     '';
   };
   eval = nixos config;

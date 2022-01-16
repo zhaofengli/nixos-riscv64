@@ -6,6 +6,7 @@ final: prev: rec {
 
     # QEMU
     sd-image-qemu = final.callPackage ./sd-image-qemu { };
+    sd-image-qemu-sway = final.callPackage ./sd-image-qemu-sway { };
 
     # HiFive Unmatched
     linux_unmatched = final.callPackage ./linux { };
