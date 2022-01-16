@@ -64,7 +64,7 @@ in {
   tier2 = makeWorld "tier2" (with pkgs; [
     graphicalSystem
 
-    pulseaudio
+    pulseaudio pavucontrol
     mesa-demos
     lynx netsurf.browser
     xterm alacritty kitty
