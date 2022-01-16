@@ -1,4 +1,4 @@
-{ lib, buildUBoot, fetchFromGitHub, opensbi, overclock ? true, unmatched }: buildUBoot rec {
+{ lib, buildUBoot, fetchFromGitHub, opensbi, overclock ? true, riscv64 }: buildUBoot rec {
   version = "2021.10";
   src = fetchFromGitHub {
     owner = "u-boot";
@@ -10,7 +10,7 @@
   defconfig = "sifive_unmatched_defconfig";
 
   extraMeta.platforms = [ "riscv64-linux" ];
-  extraPatches = unmatched.meta-sifive.ubootPatches
+  extraPatches = riscv64.meta-sifive.ubootPatches
     ++ lib.optional overclock ./overclock.patch
   extraMakeFlags = [
     "OPENSBI=${opensbi}/share/opensbi/lp64/generic/firmware/fw_dynamic.bin"

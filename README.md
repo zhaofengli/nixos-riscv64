@@ -24,7 +24,7 @@ trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDS
 
 ## U-Boot
 
-Build `pkgs.unmatched.uboot`.
+Build `pkgs.riscv64.uboot-unmatched`.
 
 You need to create two GPT partitions on the SD card with the following sizes and GUIDs:
 

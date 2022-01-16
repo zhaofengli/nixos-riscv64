@@ -8,7 +8,7 @@
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
 
-  boot.kernelPackages = pkgs.unmatched.linuxPackages;
+  boot.kernelPackages = pkgs.riscv64.linuxPackages;
   boot.initrd.kernelModules = [ "nvme" "mmc_block" "mmc_spi" "spi_sifive" "spi_nor" ];
 
   environment.systemPackages = with pkgs; [

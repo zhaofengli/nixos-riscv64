@@ -1,10 +1,10 @@
-{ pkgs, lib, linuxPackages_5_15, unmatched, ... } @ args:
+{ pkgs, lib, linuxPackages_5_15, riscv64, ... } @ args:
 
 let
   sifivePatches = map (patch: {
     name = baseNameOf patch;
     inherit patch;
-  }) unmatched.meta-sifive.kernelPatches;
+  }) riscv64.meta-sifive.kernelPatches;
 in
 linuxPackages_5_15.kernel.override({
   kernelPatches = lib.lists.unique (sifivePatches ++ [
