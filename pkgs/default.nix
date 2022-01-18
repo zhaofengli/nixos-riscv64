@@ -9,7 +9,7 @@ final: prev: rec {
     sd-image-qemu-sway = final.callPackage ./sd-image-qemu-sway { };
 
     # HiFive Unmatched
-    linux_unmatched = final.callPackage ./linux { };
+    linux_unmatched = final.callPackage ./linux-unmatched { };
     linuxPackages_unmatched = final.linuxPackagesFor linux_unmatched;
     uboot-unmatched = final.callPackage ./uboot-unmatched { };
 
