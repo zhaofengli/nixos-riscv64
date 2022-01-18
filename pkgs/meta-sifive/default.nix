@@ -13,7 +13,7 @@ in {
     "0002-board-sifive-spl-Initialized-the-PWM-setting-in-the-.patch"
     "0003-board-sifive-Set-LED-s-color-to-purple-in-the-U-boot.patch"
     "0004-board-sifive-Set-LED-s-color-to-blue-before-jumping-.patch"
-    "0005-board-sifive-spl-Set-remote-thermal-of-TMP451-to-85-.patch"
+    #"0005-board-sifive-spl-Set-remote-thermal-of-TMP451-to-85-.patch" # TODO: need to rebase
     "0006-riscv-sifive-unmatched-leave-128MiB-for-ramdisk.patch"
     "0007-riscv-sifive-unmatched-disable-FDT-and-initrd-reloca.patch"
   ];
