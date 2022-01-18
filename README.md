@@ -22,7 +22,100 @@ substituters = https://cache.nixos.org https://unmatched.cachix.org
 trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= unmatched.cachix.org-1:F8TWIP/hA2808FDABsayBCFjrmrz296+5CQaysosTTc=
 ```
 
-## U-Boot
+## HiFive Unmatched
+
+### Installing U-Boot to the SPI Flash
+
+It's recommended to install U-Boot to the on-board SPI flash using the installer image.
+You can obtain a pre-built installer image (`unmatched-spi-installer.img`) [here](https://github.com/zhaofengli/nixos-riscv64/releases), or build `riscv64.uboot-unmatched-spi-installer`.
+Burn the image into an SD card and insert it into the HiFive Unmatched.
+Ensure that the MSEL DIP switch has the factory default setting (MSEL[3:0] = 1011) to load U-Boot from the SD card.
+
+<details>
+<summary>MSEL Factory Defaults (MSEL[3:0] = 1011)</summary>
+
+```
+(Edge Of Board)
+
+--------------- ON
+|  | o | o o  |
+|  o | o | |  |
+--------------- OFF
+
+BOOT MODE SEL
+```
+</details>
+
+If successful, you should see the following in the serial console:
+
+```
+mmc0 is current device
+Scanning mmc 0:3...
+Found U-Boot script /boot.scr
+2329 bytes read in 4 ms (568.4 KiB/s)
+## Executing script at 88100000
+
+
+Firmware installer
+
+
+Installing U-Boot to the SPI flash in 10 seconds!
+devtype = mmc
+devnum = 0
+bootpart = 3
+
+:: Starting flash operation
+
+-> Initializing SPI Flash subsystem...
+SF: Detected is25wp256 with page size 256 Bytes, erase size 4 KiB, total 32 MiB
+
+-> Reading new firmware from storage...
+6291456 bytes read in 5419 ms (1.1 MiB/s)
+
+-> Writing new firmware to SPI...
+device 0 offset 0x0, size 0x600000
+12288 bytes written, 6279168 bytes skipped in 15.45s, speed 449389 B/s
+
+✅ Flashing seems to have been successful!
+You can now set MSEL[3:0] = 0110
+
+Resetting in 5 seconds
+resetting ...
+System reset not supported on this platform
+### ERROR ### Please RESET the board ###
+```
+
+Now, configure the MSEL DIP switch like the following (MSEL[3:0]=0110):
+
+```
+(Edge Of Board)
+
+--------------- ON
+|  | | o o |  |
+|  o o | | o  |
+--------------- OFF
+
+BOOT MODE SEL
+```
+
+If all goes well, you should be able to get into U-Boot without an SD card after powering your board back on.
+
+<details>
+<summary>Alternative: Manual installation from another Linux distro</summary>
+
+Build `pkgs.riscv64.uboot-unmatched-spi-image`.
+Then, flash it onto the on-board SPI flash with:
+
+```
+modprobe mtdblock
+dd if=spi-image.img of=/dev/mtdblock0 bs=4096 conv=sync
+```
+</details>
+
+<details>
+<summary>Alternative: Installing U-Boot onto the SD card</summary>
+
+**Note: With this method, you have to set up NixOS manually and can't use the pre-built SD image.**
 
 Build `pkgs.riscv64.uboot-unmatched`.
 
@@ -49,6 +142,20 @@ dd if=result/u-boot-spl.bin of=/dev/mmcblk0p1 bs=4k oflag=direct
 # SBL
 dd if=result/u-boot.itb of=/dev/mmcblk0p2 bs=4k oflag=direct
 ```
+
+Configure MSEL like the following (MSEL[3:0]=1011, default configuration):
+
+```
+(Edge Of Board)
+
+--------------- ON
+|  | o | o o  |
+|  o | o | |  |
+--------------- OFF
+
+BOOT MODE SEL
+```
+</details>
 
 ## References
 

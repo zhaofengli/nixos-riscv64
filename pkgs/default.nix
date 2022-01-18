@@ -12,6 +12,8 @@ final: prev: rec {
     linux_unmatched = final.callPackage ./linux-unmatched { };
     linuxPackages_unmatched = final.linuxPackagesFor linux_unmatched;
     uboot-unmatched = final.callPackage ./uboot-unmatched { };
+    uboot-unmatched-spi-image = final.callPackage ./uboot-unmatched-spi-image { };
+    uboot-unmatched-spi-installer = final.callPackage ./uboot-unmatched-spi-installer { };
 
     linux = final.lib.warn "riscv64.linux is deprecated. For HiFive Unmatched, use riscv64.linux_unmatched." linux_unmatched;
     linuxPackages = final.lib.warn "riscv64.linuxPackages is deprecated. For HiFive Unmatched, use riscv64.linuxPackages_unmatched." linuxPackages_unmatched;
