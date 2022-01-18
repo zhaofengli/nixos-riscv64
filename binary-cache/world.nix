@@ -35,7 +35,7 @@ let
   }).system;
 
   cachedLinuxPackagesFor = linuxPackages: map (p: linuxPackages.${p})
-    [ "kernel" ];
+    [ "kernel" "zfs" ];
 in {
   # Tier 0: Nix, toolchains, etc.
   tier0 = makeWorld "tier0" (with pkgs; [
@@ -52,7 +52,7 @@ in {
     polkit xdg-utils
     usbutils pciutils mtdutils
 
-    vim tmux wget jq htop pfetch
+    vim tmux wget jq htop pfetch file
     p7zip libarchive
     fish zsh
   ] ++ cachedLinuxPackagesFor unmatched.linuxPackages
