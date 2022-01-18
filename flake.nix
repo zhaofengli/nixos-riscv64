@@ -19,6 +19,6 @@
   in {
     overlay = import ./pkgs;
     legacyPackages.riscv64-linux = pkgs;
-    nixosModules.unmatched = ./nixos/unmatched.nix;
+    nixosModules.unmatched = import ./nixos/unmatched.nix;
   };
 }
