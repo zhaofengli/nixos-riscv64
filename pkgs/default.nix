@@ -19,6 +19,15 @@ final: prev: rec {
 
     linux = final.lib.warn "riscv64.linux is deprecated. For HiFive Unmatched, use riscv64.linux_unmatched." linux_unmatched;
     linuxPackages = final.lib.warn "riscv64.linuxPackages is deprecated. For HiFive Unmatched, use riscv64.linuxPackages_unmatched." linuxPackages_unmatched;
+
+    # StarFive VisionFive
+    linux_visionfive = final.callPackage ./linux-visionfive {
+      kernelPatches = with final.kernelPatches; [
+        bridge_stp_helper
+        request_key_helper
+      ];
+    };
+    linuxPackages_visionfive = final.linuxPackagesFor linux_visionfive;
   };
 
   unmatched = final.lib.warn "The unmatched attribute is deprecated. Use riscv64 instead." riscv64;
