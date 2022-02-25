@@ -12,5 +12,7 @@ buildLinux (args // {
 
   defconfig = "starfive_jh7100_fedora_defconfig";
 
-  extraConfig = "";
+  extraConfig = ''
+    DW_AXI_DMAC_STARFIVE y
+  '';
 }) // (args.argsOverride or {})
