@@ -46,6 +46,8 @@ in {
   tier1 = makeWorld "tier1" (with pkgs; [
     simpleSystem
 
+    grub2
+
     cargo doxygen
     gnupg gpgme pcsclite
     gptfdisk udisks
