@@ -168,6 +168,10 @@ The image has [the binary cache](https://app.cachix.org/cache/unmatched) preconf
 Alternatively, you can also install NixOS manually onto the NVMe drive using the SD image.
 If you choose to go the manual route, include `nixos/unmatched.nix` from this repo in your configuration.
 
+## StarFive VisionFive
+
+Include `nixos/visionfive.nix` from this repo in your configuration.
+
 ## References
 
 - https://github.com/carlosedp/riscv-bringup/tree/master/unmatched
