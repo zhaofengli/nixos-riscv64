@@ -14,5 +14,7 @@ buildLinux (args // {
 
   extraConfig = ''
     DW_AXI_DMAC_STARFIVE y
+    SERIAL_8250_DW y
+    PINCTRL_STARFIVE y
   '';
 }) // (args.argsOverride or {})
