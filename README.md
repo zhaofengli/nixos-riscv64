@@ -170,6 +170,10 @@ If you choose to go the manual route, include `nixos/unmatched.nix` from this re
 
 ## StarFive VisionFive
 
+You can obtain a pre-built SD image (`nixos-sd-image-visionfive.zst`) [here](https://github.com/zhaofengli/nixos-riscv64/releases), or build `riscv64.sd-image-visionfive`.
+Decompress the image, then burn it into an SD card.
+
+The image has [the binary cache](https://app.cachix.org/cache/unmatched) preconfigured, and you can reconfigure the SD image by running `sudo nixos-rebuild switch`,
 Include `nixos/visionfive.nix` from this repo in your configuration.
 
 ## References
