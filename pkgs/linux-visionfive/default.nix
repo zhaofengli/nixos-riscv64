@@ -12,9 +12,11 @@ buildLinux (args // {
 
   defconfig = "starfive_jh7100_fedora_defconfig";
 
-  extraConfig = ''
-    DW_AXI_DMAC_STARFIVE y
-    SERIAL_8250_DW y
-    PINCTRL_STARFIVE y
-  '';
+  structuredExtraConfig = with lib.kernel; {
+    SERIAL_8250_DW = yes;
+    PINCTRL_STARFIVE = yes;
+
+    # Doesn't build as a module
+    DW_AXI_DMAC_STARFIVE = yes;
+  };
 }) // (args.argsOverride or {})
