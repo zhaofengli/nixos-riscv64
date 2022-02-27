@@ -15,22 +15,26 @@ let
 
     sdImage.imageName = "nixos-sd-image-unmatched";
 
-    boot.postBootCommands = lib.mkAfter ''
-      # Copy nixos-riscv64 channel
-      if ! [ -e /var/lib/nixos/did-nixos-riscv64-channel-init ]; then
-        echo "unpacking the nixos-riscv64 channel..."
-        mkdir -p /nix/var/nix/profiles/per-user/root
-        ${config.nix.package.out}/bin/nix-env -p /nix/var/nix/profiles/per-user/root/channels \
-          -i ${riscv64Channel} --quiet --option build-use-substitutes false
-        mkdir -m 0755 -p /var/lib/nixos
-        touch /var/lib/nixos/did-nixos-riscv64-channel-init
-      fi
+    systemd.services.copy-nixos-riscv64 = {
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.Type = "oneshot";
+      script = ''
+        # Copy nixos-riscv64 channel
+        if ! [ -e /var/lib/nixos/did-nixos-riscv64-channel-init ]; then
+          echo "unpacking the nixos-riscv64 channel..."
+          mkdir -p /nix/var/nix/profiles/per-user/root
+          ${config.nix.package.out}/bin/nix-env -p /nix/var/nix/profiles/per-user/root/channels \
+            -i ${riscv64Channel} --quiet --option build-use-substitutes false
+          mkdir -m 0755 -p /var/lib/nixos
+          touch /var/lib/nixos/did-nixos-riscv64-channel-init
+        fi
 
-      # To facilitate nixos-rebuild
-      if [[ ! -e /etc/nixos/configuration.nix ]]; then
-        cp ${./configuation.nix} /etc/nixos/configuration.nix
-      fi
-    '';
+        # To facilitate nixos-rebuild
+        if [[ ! -e /etc/nixos/configuration.nix ]]; then
+          cp ${./configuation.nix} /etc/nixos/configuration.nix
+        fi
+      '';
+    };
   };
   eval = nixos config;
 in eval.config.system.build.sdImage
