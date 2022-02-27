@@ -18,5 +18,10 @@ buildLinux (args // {
 
     # Doesn't build as a module
     DW_AXI_DMAC_STARFIVE = yes;
+
+    # stmmac hangs when built as a module
+    PTP_1588_CLOCK = yes;
+    STMMAC_ETH = yes;
+    STMMAC_PCI = yes;
   };
 }) // (args.argsOverride or {})
