@@ -21,6 +21,8 @@ final: prev: rec {
     linuxPackages = final.lib.warn "riscv64.linuxPackages is deprecated. For HiFive Unmatched, use riscv64.linuxPackages_unmatched." linuxPackages_unmatched;
 
     # StarFive VisionFive
+    sd-image-visionfive = final.callPackage ./sd-image-visionfive { };
+
     linux_visionfive = final.callPackage ./linux-visionfive {
       kernelPatches = with final.kernelPatches; [
         bridge_stp_helper
