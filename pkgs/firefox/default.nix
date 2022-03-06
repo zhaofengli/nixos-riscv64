@@ -11,6 +11,32 @@ let
     overlays = pkgs.overlays;
   };
 
+  patchedSrc = pkgs.runCommand "firefox-${pkgs.firefox-unwrapped.version}-riscv64.source.tar.xz" {
+    originalSrc = pkgs.firefox-unwrapped.src;
+    nativeBuildInputs = with pkgs; [ python3 cargo git ];
+
+    outputHashMode = "flat";
+    outputHash = "sha256-5SKYhGEKVOtaiTUKQgz05eaixy3/SNa7nwbXU8TTxgc=";
+  } ''
+    >&2 echo "Unpacking source..."
+    tar xf $originalSrc
+    pushd firefox-*
+
+    >&2 echo "Patching source..."
+    patch -p1 < ${./riscv64-base.patch}
+
+    >&2 echo "Updating vendor..."
+    git init
+    HOME=/tmp PYTHONDONTWRITEBYTECODE=1 python3 ./mach vendor rust --ignore-modified
+    rm -rf .git obj*
+
+    >&2 echo "Repacking source..."
+    popd
+    tar -caf $out --sort=name --owner=0 --group=0 --numeric-owner --format=gnu \
+        --mtime=@0 --sort=name \
+        firefox-*
+  '';
+
   firefox = let
     ffOverride = pkgs.firefox-unwrapped.override {
       # FIXME: Haven't managed to build nodejs natively on RISC-V (stuck
@@ -23,8 +49,6 @@ let
   in ffOverride.overrideAttrs (old: {
     # The only thing required here is to update authenticator-rs
     # for RISC-V support.
-    patches = (old.patches or []) ++ [
-      ./riscv64.patch
-    ];
+    src = patchedSrc;
   });
 in firefox

@@ -1,0 +1,22 @@
+commit dcb0838ee2ddf1c45c56f53aba69c779032e4815
+Author: Zhaofeng Li <hello@zhaofeng.li>
+Date:   Sat Mar 5 14:43:10 2022 -0800
+
+    Patch authenticator-rs for RISC-V
+    
+    After applying this patch, run `./mach vendor rust` to update the
+    vendored libs.
+
+diff --git a/toolkit/library/rust/shared/Cargo.toml b/toolkit/library/rust/shared/Cargo.toml
+index 72898fab60..69e1edc22b 100644
+--- a/toolkit/library/rust/shared/Cargo.toml
++++ b/toolkit/library/rust/shared/Cargo.toml
+@@ -24,7 +24,7 @@ cubeb-coreaudio = { git = "https://github.com/mozilla/cubeb-coreaudio-rs", rev =
+ cubeb-pulse = { git = "https://github.com/mozilla/cubeb-pulse-rs", rev="f2456201dbfdc467b80f0ff6bbb1b8a6faf7df02", optional = true, features=["pulse-dlopen"] }
+ cubeb-sys = { version = "0.9", optional = true, features=["gecko-in-tree"] }
+ encoding_glue = { path = "../../../../intl/encoding_glue" }
+-authenticator = "0.3.1"
++authenticator = { git = "https://github.com/zhaofengli/authenticator-rs", rev = "636595acdf24f1469ed7f859bd533ff8f4696126", version = "0.3.1" }
+ gkrust_utils = { path = "../../../../xpcom/rust/gkrust_utils" }
+ gecko_logger = { path = "../../../../xpcom/rust/gecko_logger" }
+ rsdparsa_capi = { path = "../../../../dom/media/webrtc/sdp/rsdparsa_capi" }
