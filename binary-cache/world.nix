@@ -57,8 +57,8 @@ in {
     vim tmux wget jq htop pfetch file
     p7zip libarchive
     fish zsh
-  ] ++ cachedLinuxPackagesFor unmatched.linuxPackages_unmatched
-    ++ cachedLinuxPackagesFor unmatched.linuxPackages_visionfive
+  ] ++ cachedLinuxPackagesFor riscv64.linuxPackages_unmatched
+    ++ cachedLinuxPackagesFor riscv64.linuxPackages_visionfive
     ++ cachedLinuxPackagesFor linuxPackages
     ++ cachedLinuxPackagesFor linuxPackages_5_15
   );
@@ -75,6 +75,6 @@ in {
     grim slurp wdisplays
     superTuxKart
 
-    unmatched.firefox
+    riscv64.firefox
   ]);
 }
