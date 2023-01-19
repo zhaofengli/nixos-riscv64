@@ -1,38 +1,40 @@
+let
+  # Used by Zhaofeng
+  defaultPkgs = import ../nixpkgs {
+    overlays = [ (import ../pkgs) ];
+  };
+in
+
+{ pkgs ? defaultPkgs }:
+
 with builtins;
 
 let
-  pkgs = import ../nixpkgs {
-    overlays = [ (import ../pkgs) ];
-  };
   makeWorld = name: contents: pkgs.writeText name (concatStringsSep "\n" contents);
 
-  simpleSystem = (import (pkgs.path + "/nixos") {
-    configuration = {
-      imports = [
-        # All utilities in installer images
-        (pkgs.path + "/nixos/modules/profiles/base.nix")
-        (pkgs.path + "/nixos/modules/profiles/installation-device.nix")
-      ];
+  simpleSystem = (pkgs.nixos {
+    imports = [
+      # All utilities in installer images
+      (pkgs.path + "/nixos/modules/profiles/base.nix")
+      (pkgs.path + "/nixos/modules/profiles/installation-device.nix")
+    ];
 
-      fileSystems."/".device = "fake";
-      boot.loader.grub.enable = false;
-      networking.useDHCP = false;
-      networking.useNetworkd = true;
-      services.openssh.enable = true;
-    };
-  }).system;
+    fileSystems."/".device = "fake";
+    boot.loader.grub.enable = false;
+    networking.useDHCP = false;
+    networking.useNetworkd = true;
+    services.openssh.enable = true;
+  }).config.system.build.toplevel;
 
-  graphicalSystem = (import (pkgs.path + "/nixos") {
-    configuration = {
-      fileSystems."/".device = "fake";
-      boot.loader.grub.enable = false;
-      services.xserver.enable = true;
-      programs.sway.enable = true;
+  graphicalSystem = (pkgs.nixos {
+    fileSystems."/".device = "fake";
+    boot.loader.grub.enable = false;
+    services.xserver.enable = true;
+    programs.sway.enable = true;
 
-      # imake/xorg-cf-files doesn't have riscv64 definitions merged
-      programs.ssh.askPassword = "";
-    };
-  }).system;
+    # imake/xorg-cf-files doesn't have riscv64 definitions merged
+    programs.ssh.askPassword = "";
+  }).config.system.build.toplevel;
 
   cachedLinuxPackagesFor = linuxPackages: map (p: linuxPackages.${p})
     [ "kernel" "zfs" ];
@@ -77,4 +79,6 @@ in {
 
     riscv64.firefox
   ]);
+
+  inherit simpleSystem;
 }
