@@ -11,14 +11,15 @@ Yes! More details [here](https://github.com/NixOS/nixpkgs/issues/101651#issuecom
 
 ## Binary cache
 
-A binary cache is available [here](https://app.cachix.org/cache/unmatched), with all packages in `binary-cache/world.nix` cached.
-Note that all binaries here are built against [my riscv-cached branch](https://github.com/zhaofengli/nixpkgs/tree/riscv-cached).
+> **Note** The new binary cache is still being populated and most packages may not be available.
 
+A binary cache is available with packages in `binary-cache/world.nix`.
 Use the following configurations:
 ```
-substituters = https://cache.nixos.org https://unmatched.cachix.org
-trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= unmatched.cachix.org-1:F8TWIP/hA2808FDABsayBCFjrmrz296+5CQaysosTTc=
+substituters = https://cache.nixos.org https://beam.attic.rs/riscv
+trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= riscv:TZX1ReuoIGt7QiSQups+92ym8nKJUSV0O2NkS4HAqH8=
 ```
+<!-- Note that all binaries here are built against [my riscv-cached branch](https://github.com/zhaofengli/nixpkgs/tree/riscv-cached). -->
 
 ## Nixpkgs overlay
 
