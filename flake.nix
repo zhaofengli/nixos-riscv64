@@ -23,5 +23,10 @@
       unmatched = import ./nixos/unmatched.nix;
       visionfive = import ./nixos/visionfive.nix;
     };
+    hydraJobs = {
+      world = import ./binary-cache/world.nix {
+        inherit pkgs;
+      };
+    };
   };
 }
