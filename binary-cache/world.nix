@@ -59,6 +59,8 @@ in {
     vim tmux wget jq htop pfetch file
     p7zip libarchive
     fish zsh
+
+    go
   ] ++ cachedLinuxPackagesFor riscv64.linuxPackages_unmatched
     ++ cachedLinuxPackagesFor riscv64.linuxPackages_visionfive
     ++ cachedLinuxPackagesFor linuxPackages
