@@ -8,6 +8,7 @@
   outputs = { self, nixpkgs }: let
     pkgs = import nixpkgs {
       system = "riscv64-linux";
+      config.allowBroken = true;
       overlays = [
         (final: prev: {
           nixos-riscv64 = self.outPath;

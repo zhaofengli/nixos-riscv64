@@ -1,6 +1,7 @@
 let
   # Used by Zhaofeng
   defaultPkgs = import ../nixpkgs {
+    config.allowBroken = true;
     overlays = [ (import ../pkgs) ];
   };
 in
