@@ -25,6 +25,8 @@ let
     networking.useDHCP = false;
     networking.useNetworkd = true;
     services.openssh.enable = true;
+
+    system.stateVersion = "23.05";
   }).config.system.build.toplevel;
 
   graphicalSystem = (pkgs.nixos {
@@ -35,6 +37,8 @@ let
 
     # imake/xorg-cf-files doesn't have riscv64 definitions merged
     programs.ssh.askPassword = "";
+
+    system.stateVersion = "23.05";
   }).config.system.build.toplevel;
 
   cachedLinuxPackagesFor = linuxPackages: map (p: linuxPackages.${p})
