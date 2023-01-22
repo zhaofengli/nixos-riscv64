@@ -54,14 +54,22 @@ in {
     cargo doxygen
     gnupg gpgme pcsclite
     gptfdisk udisks
+    mdadm
     polkit xdg-utils
     usbutils pciutils mtdutils
-
-    vim tmux wget jq htop pfetch file
+    nfs-utils
+    patchutils
+    util-linux pv lsof
+    htop iotop iftop
+    lm_sensors
+    screen tmux
+    vim wget jq pfetch file
     p7zip libarchive
     fish zsh
 
-    go
+    zfs zfsUnstable
+
+    go tailscale
   ] ++ cachedLinuxPackagesFor riscv64.linuxPackages_unmatched
     ++ cachedLinuxPackagesFor riscv64.linuxPackages_visionfive
     ++ cachedLinuxPackagesFor linuxPackages
@@ -79,6 +87,7 @@ in {
     waypipe
     grim slurp wdisplays
     superTuxKart
+    mstflint
 
     riscv64.firefox
   ]);
