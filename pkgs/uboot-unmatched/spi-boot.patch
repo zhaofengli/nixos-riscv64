@@ -1,0 +1,45 @@
+diff --git a/arch/riscv/dts/hifive-unmatched-a00.dts b/arch/riscv/dts/hifive-unmatched-a00.dts
+index 6588512cf9..063a3980bd 100644
+--- a/arch/riscv/dts/hifive-unmatched-a00.dts
++++ b/arch/riscv/dts/hifive-unmatched-a00.dts
+@@ -30,6 +30,10 @@
+ 	soc {
+ 	};
+ 
++	config {
++		u-boot,spl-payload-offset = <0x104400>;
++	}; 
++
+ 	hfclk: hfclk {
+ 		#clock-cells = <0>;
+ 		compatible = "fixed-clock";
+@@ -209,8 +213,10 @@
+ };
+ 
+ &qspi0 {
++	u-boot,dm-spl;
+ 	status = "okay";
+ 	flash@0 {
++		u-boot,dm-spl;
+ 		compatible = "issi,is25wp256", "jedec,spi-nor";
+ 		reg = <0>;
+ 		spi-max-frequency = <50000000>;
+--- a/board/sifive/hifive_unmatched_fu740/spl.c	2021-06-02 10:39:31.187130118 -0700
++++ b/board/sifive/hifive_unmatched_fu740/spl.c	2021-06-02 10:45:51.779302884 -0700
+@@ -24,6 +24,7 @@
+ #define GEM_PHY_RESET	SIFIVE_GENERIC_GPIO_NR(0, 12)
+ 
+ #define MODE_SELECT_REG		0x1000
++#define MODE_SELECT_QSPI	0x6
+ #define MODE_SELECT_SD		0xb
+ #define MODE_SELECT_MASK	GENMASK(3, 0)
+ 
+@@ -155,6 +155,8 @@
+ 	u32 boot_device = mode_select & MODE_SELECT_MASK;
+ 
+ 	switch (boot_device) {
++	case MODE_SELECT_QSPI:
++		return BOOT_DEVICE_SPI;
+ 	case MODE_SELECT_SD:
+ 		return BOOT_DEVICE_MMC1;
+ 	default:

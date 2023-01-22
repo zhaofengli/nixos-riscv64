@@ -1,12 +1,13 @@
+diff --git a/arch/riscv/dts/fu740-c000-u-boot.dtsi b/arch/riscv/dts/fu740-c000-u-boot.dtsi
+index 917e9bf163..7297bfe03b 100644
 --- a/arch/riscv/dts/fu740-c000-u-boot.dtsi
 +++ b/arch/riscv/dts/fu740-c000-u-boot.dtsi
 @@ -8,7 +8,7 @@
  / {
  	cpus {
- 		assigned-clocks = <&prci PRCI_CLK_COREPLL>;
+ 		assigned-clocks = <&prci FU740_PRCI_CLK_COREPLL>;
 -		assigned-clock-rates = <1200000000>;
 +		assigned-clock-rates = <1300000000>;
  		u-boot,dm-spl;
  		cpu0: cpu@0 {
- 			clocks = <&prci PRCI_CLK_COREPLL>;
--- 
+ 			clocks = <&prci FU740_PRCI_CLK_COREPLL>;

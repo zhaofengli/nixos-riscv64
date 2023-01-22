@@ -1,10 +1,10 @@
 { lib, buildUBoot, fetchFromGitHub, fetchpatch, opensbi, overclock ? true, riscv64 }: buildUBoot rec {
-  version = "2022.01";
+  version = "2022.10";
   src = fetchFromGitHub {
     owner = "u-boot";
     repo = "u-boot";
     rev = "v${version}";
-    sha256 = "sha256-kKxo62/TI0HD8uZaL39FyJc783JsErkfspKsQ6uvEMU=";
+    sha256 = "sha256-L6AXbJEDx+KoMvqBuJYyIyK2Xn2zyF21NH5mMNvygmM=";
   };
 
   defconfig = "sifive_unmatched_defconfig";

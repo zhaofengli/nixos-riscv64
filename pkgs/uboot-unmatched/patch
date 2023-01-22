@@ -1,0 +1,19 @@
+--- board/sifive/hifive_unmatched_fu740/spl.c.old	2021-06-02 10:39:31.187130118 -0700
++++ board/sifive/hifive_unmatched_fu740/spl.c	2021-06-02 10:45:51.779302884 -0700
+@@ -24,6 +24,7 @@
+ #define GEM_PHY_RESET	SIFIVE_GENERIC_GPIO_NR(0, 12)
+ 
+ #define MODE_SELECT_REG		0x1000
++#define MODE_SELECT_QSPI	0x6
+ #define MODE_SELECT_SD		0xb
+ #define MODE_SELECT_MASK	GENMASK(3, 0)
+ 
+@@ -155,6 +156,8 @@
+ 	u32 boot_device = mode_select & MODE_SELECT_MASK;
+ 
+ 	switch (boot_device) {
++	case MODE_SELECT_QSPI:
++		return BOOT_DEVICE_SPI;
+ 	case MODE_SELECT_SD:
+ 		return BOOT_DEVICE_MMC1;
+ 	default:
